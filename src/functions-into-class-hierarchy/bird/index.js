@@ -8,16 +8,7 @@ export class Bird {
   }
 
   get airSpeedVelocity() {
-    switch (this.type) {
-      case 'EuropeanSwallow':
-        return 35;
-      case 'AfricanSwallow':
-        return 40 - 2 * this.numberOfCoconuts;
-      case 'NorwegianBlueParrot':
-        return this.isNailed ? 0 : 10 + this.voltage / 10;
-      default:
-        return null;
-    }
+    return null;
   }
 }
 

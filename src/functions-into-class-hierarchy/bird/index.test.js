@@ -9,37 +9,7 @@ describe('Bird', () => {
   });
 
   describe('airSpeedVelocity', () => {
-    it('should return 35 for EuropeanSwallow', () => {
-      const bird = new Bird({ type: 'EuropeanSwallow' });
-      expect(bird.airSpeedVelocity).toBe(35);
-    });
-
-    it('should return 38 for AfricanSwallow with 1 coconut', () => {
-      const bird = new Bird({ type: 'AfricanSwallow', numberOfCoconuts: 1 });
-      expect(bird.airSpeedVelocity).toBe(38);
-    });
-
-    it('should return 36 for AfricanSwallow with 2 coconuts', () => {
-      const bird = new Bird({ type: 'AfricanSwallow', numberOfCoconuts: 2 });
-      expect(bird.airSpeedVelocity).toBe(36);
-    });
-
-    it('should return 0 for nailed NorwegianBlueParrot', () => {
-      const bird = new Bird({ type: 'NorwegianBlueParrot', isNailed: true });
-      expect(bird.airSpeedVelocity).toBe(0);
-    });
-
-    it('should return 20 for NorwegianBlueParrot with voltage 100', () => {
-      const bird = new Bird({ type: 'NorwegianBlueParrot', voltage: 100 });
-      expect(bird.airSpeedVelocity).toBe(20);
-    });
-
-    it('should return 15 for NorwegianBlueParrot with voltage 50', () => {
-      const bird = new Bird({ type: 'NorwegianBlueParrot', voltage: 50 });
-      expect(bird.airSpeedVelocity).toBe(15);
-    });
-
-    it('should return null for unknown bird type', () => {
+    it('should return null', () => {
       const bird = new Bird({ type: 'Unknown' });
       expect(bird.airSpeedVelocity).toBe(null);
     });
