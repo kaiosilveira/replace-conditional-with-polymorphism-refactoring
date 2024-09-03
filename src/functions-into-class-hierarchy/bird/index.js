@@ -41,7 +41,11 @@ export class AfricanSwallow extends Bird {
   }
 }
 
-export class NorwegianBlueParrot extends Bird {}
+export class NorwegianBlueParrot extends Bird {
+  get plumage() {
+    return this.voltage > 100 ? 'scorched' : 'beautiful';
+  }
+}
 
 export function createBird(birdObject) {
   switch (birdObject.type) {
