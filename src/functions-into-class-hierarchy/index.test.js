@@ -1,4 +1,4 @@
-import { speeds, airSpeedVelocity, plumages } from './index';
+import { speeds, plumages } from './index';
 
 describe('plumages', () => {
   it('should return a map containing the plumage of all birds in the list', () => {
@@ -20,38 +20,6 @@ describe('plumages', () => {
     expect(result.get('bird4')).toBe('beautiful');
     expect(result.get('bird5')).toBe('scorched');
     expect(result.get('bird6')).toBe('unknown');
-  });
-});
-
-describe('airSpeedVelocity', () => {
-  it('should return 35 for EuropeanSwallow', () => {
-    const bird = { type: 'EuropeanSwallow' };
-    expect(airSpeedVelocity(bird)).toBe(35);
-  });
-
-  it('should return 38 for AfricanSwallow with 1 coconut', () => {
-    const bird = { type: 'AfricanSwallow', numberOfCoconuts: 1 };
-    expect(airSpeedVelocity(bird)).toBe(38);
-  });
-
-  it('should return 36 for AfricanSwallow with 2 coconuts', () => {
-    const bird = { type: 'AfricanSwallow', numberOfCoconuts: 2 };
-    expect(airSpeedVelocity(bird)).toBe(36);
-  });
-
-  it('should return 0 for nailed NorwegianBlueParrot', () => {
-    const bird = { type: 'NorwegianBlueParrot', isNailed: true };
-    expect(airSpeedVelocity(bird)).toBe(0);
-  });
-
-  it('should return 10 for NorwegianBlueParrot with voltage 0', () => {
-    const bird = { type: 'NorwegianBlueParrot', voltage: 0 };
-    expect(airSpeedVelocity(bird)).toBe(10);
-  });
-
-  it('should return 20 for NorwegianBlueParrot with voltage 100', () => {
-    const bird = { type: 'NorwegianBlueParrot', voltage: 100 };
-    expect(airSpeedVelocity(bird)).toBe(20);
   });
 });
 

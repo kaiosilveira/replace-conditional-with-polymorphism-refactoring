@@ -5,9 +5,5 @@ export function plumages(birds) {
 }
 
 export function speeds(birds) {
-  return new Map(birds.map(b => [b.name, airSpeedVelocity(b)]));
-}
-
-export function airSpeedVelocity(bird) {
-  return createBird(bird).airSpeedVelocity;
+  return new Map(birds.map(b => createBird(b)).map(b => [b.name, b.airSpeedVelocity]));
 }
