@@ -2,27 +2,7 @@ import { Bird, EuropeanSwallow, AfricanSwallow, NorwegianBlueParrot, createBird 
 
 describe('Bird', () => {
   describe('plumage', () => {
-    it('should throw an error if bird type is EuropeanSwallow', () => {
-      const bird = new Bird({ type: 'EuropeanSwallow' });
-      expect(() => bird.plumage).toThrow('oops');
-    });
-
-    it('should throw an error if bird type is AfricanSwallow', () => {
-      const bird = new Bird({ type: 'AfricanSwallow' });
-      expect(() => bird.plumage).toThrow('oops');
-    });
-
-    it('should return "scorched" for NorwegianBlueParrot with voltage greater than 100', () => {
-      const bird = new Bird({ type: 'NorwegianBlueParrot', voltage: 101 });
-      expect(bird.plumage).toBe('scorched');
-    });
-
-    it('should return "beautiful" for NorwegianBlueParrot with voltage 100 or less', () => {
-      const bird = new Bird({ type: 'NorwegianBlueParrot', voltage: 100 });
-      expect(bird.plumage).toBe('beautiful');
-    });
-
-    it('should return "unknown" for unknown bird type', () => {
+    it('should return "unknown"', () => {
       const bird = new Bird({ type: 'Unknown' });
       expect(bird.plumage).toBe('unknown');
     });

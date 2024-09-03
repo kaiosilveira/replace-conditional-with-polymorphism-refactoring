@@ -4,15 +4,7 @@ export class Bird {
   }
 
   get plumage() {
-    switch (this.type) {
-      case 'EuropeanSwallow':
-      case 'AfricanSwallow':
-        throw 'oops';
-      case 'NorwegianBlueParrot':
-        return this.voltage > 100 ? 'scorched' : 'beautiful';
-      default:
-        return 'unknown';
-    }
+    return 'unknown';
   }
 
   get airSpeedVelocity() {
