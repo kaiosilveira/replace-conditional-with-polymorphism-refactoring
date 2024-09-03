@@ -7,14 +7,9 @@ describe('Bird', () => {
       expect(() => bird.plumage).toThrow('oops');
     });
 
-    it('should return "tired" for AfricanSwallow with more than 2 coconuts', () => {
-      const bird = new Bird({ type: 'AfricanSwallow', numberOfCoconuts: 3 });
-      expect(bird.plumage).toBe('tired');
-    });
-
-    it('should return "average" for AfricanSwallow with 2 or less coconuts', () => {
-      const bird = new Bird({ type: 'AfricanSwallow', numberOfCoconuts: 2 });
-      expect(bird.plumage).toBe('average');
+    it('should throw an error if bird type is AfricanSwallow', () => {
+      const bird = new Bird({ type: 'AfricanSwallow' });
+      expect(() => bird.plumage).toThrow('oops');
     });
 
     it('should return "scorched" for NorwegianBlueParrot with voltage greater than 100', () => {
