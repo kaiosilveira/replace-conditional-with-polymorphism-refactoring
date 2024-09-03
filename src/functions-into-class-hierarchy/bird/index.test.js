@@ -80,6 +80,20 @@ describe('EuropeanSwallow', () => {
   });
 });
 
+describe('AfricanSwallow', () => {
+  describe('plumage', () => {
+    it('should return "tired" for more than 2 coconuts', () => {
+      const bird = new AfricanSwallow({ type: 'AfricanSwallow', numberOfCoconuts: 3 });
+      expect(bird.plumage).toBe('tired');
+    });
+
+    it('should return "average" for 2 or less coconuts', () => {
+      const bird = new AfricanSwallow({ type: 'AfricanSwallow', numberOfCoconuts: 2 });
+      expect(bird.plumage).toBe('average');
+    });
+  });
+});
+
 describe('createBird', () => {
   it('should return an instance of EuropeanSwallow for type EuropeanSwallow', () => {
     const bird = { type: 'EuropeanSwallow' };

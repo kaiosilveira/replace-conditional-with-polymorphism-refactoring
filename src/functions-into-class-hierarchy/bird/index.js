@@ -36,7 +36,11 @@ export class EuropeanSwallow extends Bird {
   }
 }
 
-export class AfricanSwallow extends Bird {}
+export class AfricanSwallow extends Bird {
+  get plumage() {
+    return this.numberOfCoconuts > 2 ? 'tired' : 'average';
+  }
+}
 
 export class NorwegianBlueParrot extends Bird {}
 
