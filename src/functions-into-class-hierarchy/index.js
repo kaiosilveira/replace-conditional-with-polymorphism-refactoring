@@ -1,4 +1,4 @@
-import { Bird } from './bird';
+import { Bird, createBird } from './bird';
 
 export function plumages(birds) {
   return new Map(birds.map(b => [b.name, plumage(b)]));
@@ -9,7 +9,7 @@ export function speeds(birds) {
 }
 
 export function plumage(bird) {
-  return new Bird(bird).plumage;
+  return createBird(bird).plumage;
 }
 
 export function airSpeedVelocity(bird) {
