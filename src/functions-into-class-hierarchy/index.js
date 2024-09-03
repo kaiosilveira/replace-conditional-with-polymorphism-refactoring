@@ -1,15 +1,11 @@
-import { Bird, createBird } from './bird';
+import { createBird } from './bird';
 
 export function plumages(birds) {
-  return new Map(birds.map(b => [b.name, plumage(b)]));
+  return new Map(birds.map(b => createBird(b)).map(b => [b.name, b.plumage]));
 }
 
 export function speeds(birds) {
   return new Map(birds.map(b => [b.name, airSpeedVelocity(b)]));
-}
-
-export function plumage(bird) {
-  return createBird(bird).plumage;
 }
 
 export function airSpeedVelocity(bird) {

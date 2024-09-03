@@ -1,36 +1,4 @@
-import { speeds, airSpeedVelocity, plumage, plumages } from './index';
-
-describe('plumage', () => {
-  it('should return "average" for EuropeanSwallow', () => {
-    const bird = { type: 'EuropeanSwallow' };
-    expect(plumage(bird)).toBe('average');
-  });
-
-  it('should return "tired" for AfricanSwallow with more than 2 coconuts', () => {
-    const bird = { type: 'AfricanSwallow', numberOfCoconuts: 3 };
-    expect(plumage(bird)).toBe('tired');
-  });
-
-  it('should return "average" for AfricanSwallow with 2 or less coconuts', () => {
-    const bird = { type: 'AfricanSwallow', numberOfCoconuts: 2 };
-    expect(plumage(bird)).toBe('average');
-  });
-
-  it('should return "scorched" for NorwegianBlueParrot with voltage greater than 100', () => {
-    const bird = { type: 'NorwegianBlueParrot', voltage: 101 };
-    expect(plumage(bird)).toBe('scorched');
-  });
-
-  it('should return "beautiful" for NorwegianBlueParrot with voltage 100 or less', () => {
-    const bird = { type: 'NorwegianBlueParrot', voltage: 100 };
-    expect(plumage(bird)).toBe('beautiful');
-  });
-
-  it('should return "unknown" for unknown bird type', () => {
-    const bird = { type: 'Unknown' };
-    expect(plumage(bird)).toBe('unknown');
-  });
-});
+import { speeds, airSpeedVelocity, plumages } from './index';
 
 describe('plumages', () => {
   it('should return a map containing the plumage of all birds in the list', () => {
@@ -46,12 +14,12 @@ describe('plumages', () => {
     const result = plumages(birds);
 
     expect(result.size).toBe(6);
-    expect(result.get('bird1')).toBe(plumage(birds[0]));
-    expect(result.get('bird2')).toBe(plumage(birds[1]));
-    expect(result.get('bird3')).toBe(plumage(birds[2]));
-    expect(result.get('bird4')).toBe(plumage(birds[3]));
-    expect(result.get('bird5')).toBe(plumage(birds[4]));
-    expect(result.get('bird6')).toBe(plumage(birds[5]));
+    expect(result.get('bird1')).toBe('average');
+    expect(result.get('bird2')).toBe('average');
+    expect(result.get('bird3')).toBe('tired');
+    expect(result.get('bird4')).toBe('beautiful');
+    expect(result.get('bird5')).toBe('scorched');
+    expect(result.get('bird6')).toBe('unknown');
   });
 });
 
