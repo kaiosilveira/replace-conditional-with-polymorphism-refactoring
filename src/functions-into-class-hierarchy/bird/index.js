@@ -35,3 +35,16 @@ export class EuropeanSwallow extends Bird {}
 export class AfricanSwallow extends Bird {}
 
 export class NorwegianBlueParrot extends Bird {}
+
+export function createBird(birdObject) {
+  switch (birdObject.type) {
+    case 'EuropeanSwallow':
+      return new EuropeanSwallow(birdObject);
+    case 'AfricanSwallow':
+      return new AfricanSwallow(birdObject);
+    case 'NorwegianBlueParrot':
+      return new NorwegianBlueParrot(birdObject);
+    default:
+      return new Bird(birdObject);
+  }
+}

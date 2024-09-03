@@ -1,4 +1,4 @@
-import { Bird } from './index';
+import { Bird, EuropeanSwallow, AfricanSwallow, NorwegianBlueParrot, createBird } from './index';
 
 describe('Bird', () => {
   describe('plumage', () => {
@@ -68,5 +68,27 @@ describe('Bird', () => {
       const bird = new Bird({ type: 'Unknown' });
       expect(bird.airSpeedVelocity).toBe(null);
     });
+  });
+});
+
+describe('createBird', () => {
+  it('should return an instance of EuropeanSwallow for type EuropeanSwallow', () => {
+    const bird = { type: 'EuropeanSwallow' };
+    expect(createBird(bird)).toBeInstanceOf(EuropeanSwallow);
+  });
+
+  it('should return an instance of AfricanSwallow for type AfricanSwallow', () => {
+    const bird = { type: 'AfricanSwallow' };
+    expect(createBird(bird)).toBeInstanceOf(AfricanSwallow);
+  });
+
+  it('should return an instance of NorwegianBlueParrot for type NorwegianBlueParrot', () => {
+    const bird = { type: 'NorwegianBlueParrot' };
+    expect(createBird(bird)).toBeInstanceOf(NorwegianBlueParrot);
+  });
+
+  it('should return an instance of Bird for unknown type', () => {
+    const bird = { type: 'Unknown' };
+    expect(createBird(bird)).toBeInstanceOf(Bird);
   });
 });
