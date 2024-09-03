@@ -2,9 +2,9 @@ import { Bird, EuropeanSwallow, AfricanSwallow, NorwegianBlueParrot, createBird 
 
 describe('Bird', () => {
   describe('plumage', () => {
-    it('should return "average" for EuropeanSwallow', () => {
+    it('should throw an error if bird type is EuropeanSwallow', () => {
       const bird = new Bird({ type: 'EuropeanSwallow' });
-      expect(bird.plumage).toBe('average');
+      expect(() => bird.plumage).toThrow('oops');
     });
 
     it('should return "tired" for AfricanSwallow with more than 2 coconuts', () => {
