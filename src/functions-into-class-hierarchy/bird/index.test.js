@@ -105,6 +105,23 @@ describe('NorwegianBlueParrot', () => {
       expect(bird.airSpeedVelocity).toBe(15);
     });
   });
+
+  describe('airSpeedVelocity', () => {
+    it('should return 0 for nailed NorwegianBlueParrot', () => {
+      const bird = new NorwegianBlueParrot({ type: 'NorwegianBlueParrot', isNailed: true });
+      expect(bird.airSpeedVelocity).toBe(0);
+    });
+
+    it('should return 20 for NorwegianBlueParrot with voltage 100', () => {
+      const bird = new NorwegianBlueParrot({ type: 'NorwegianBlueParrot', voltage: 100 });
+      expect(bird.airSpeedVelocity).toBe(20);
+    });
+
+    it('should return 15 for NorwegianBlueParrot with voltage 50', () => {
+      const bird = new NorwegianBlueParrot({ type: 'NorwegianBlueParrot', voltage: 50 });
+      expect(bird.airSpeedVelocity).toBe(15);
+    });
+  });
 });
 
 describe('createBird', () => {
