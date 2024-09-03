@@ -45,6 +45,10 @@ export class NorwegianBlueParrot extends Bird {
   get plumage() {
     return this.voltage > 100 ? 'scorched' : 'beautiful';
   }
+
+  get airSpeedVelocity() {
+    return this.isNailed ? 0 : 10 + this.voltage / 10;
+  }
 }
 
 export function createBird(birdObject) {
