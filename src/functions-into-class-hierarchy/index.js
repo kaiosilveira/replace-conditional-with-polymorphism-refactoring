@@ -13,5 +13,5 @@ export function plumage(bird) {
 }
 
 export function airSpeedVelocity(bird) {
-  return new Bird(bird).airSpeedVelocity;
+  return createBird(bird).airSpeedVelocity;
 }
