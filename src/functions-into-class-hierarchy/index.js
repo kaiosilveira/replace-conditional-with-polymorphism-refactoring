@@ -1,3 +1,5 @@
+import { Bird } from './bird';
+
 export function plumages(birds) {
   return new Map(birds.map(b => [b.name, plumage(b)]));
 }
@@ -7,16 +9,7 @@ export function speeds(birds) {
 }
 
 export function plumage(bird) {
-  switch (bird.type) {
-    case 'EuropeanSwallow':
-      return 'average';
-    case 'AfricanSwallow':
-      return bird.numberOfCoconuts > 2 ? 'tired' : 'average';
-    case 'NorwegianBlueParrot':
-      return bird.voltage > 100 ? 'scorched' : 'beautiful';
-    default:
-      return 'unknown';
-  }
+  return new Bird(bird).plumage;
 }
 
 export function airSpeedVelocity(bird) {
