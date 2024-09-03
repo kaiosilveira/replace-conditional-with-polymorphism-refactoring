@@ -13,14 +13,5 @@ export function plumage(bird) {
 }
 
 export function airSpeedVelocity(bird) {
-  switch (bird.type) {
-    case 'EuropeanSwallow':
-      return 35;
-    case 'AfricanSwallow':
-      return 40 - 2 * bird.numberOfCoconuts;
-    case 'NorwegianBlueParrot':
-      return bird.isNailed ? 0 : 10 + bird.voltage / 10;
-    default:
-      return null;
-  }
+  return new Bird(bird).airSpeedVelocity;
 }
