@@ -30,7 +30,11 @@ export class Bird {
   }
 }
 
-export class EuropeanSwallow extends Bird {}
+export class EuropeanSwallow extends Bird {
+  get plumage() {
+    return 'average';
+  }
+}
 
 export class AfricanSwallow extends Bird {}
 

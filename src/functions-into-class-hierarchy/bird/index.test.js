@@ -71,6 +71,15 @@ describe('Bird', () => {
   });
 });
 
+describe('EuropeanSwallow', () => {
+  describe('plumage', () => {
+    it('should return "average"', () => {
+      const bird = new EuropeanSwallow({ type: 'EuropeanSwallow' });
+      expect(bird.plumage).toBe('average');
+    });
+  });
+});
+
 describe('createBird', () => {
   it('should return an instance of EuropeanSwallow for type EuropeanSwallow', () => {
     const bird = { type: 'EuropeanSwallow' };
