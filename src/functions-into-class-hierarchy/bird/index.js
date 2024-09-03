@@ -25,6 +25,10 @@ export class EuropeanSwallow extends Bird {
   get plumage() {
     return 'average';
   }
+
+  get airSpeedVelocity() {
+    return 35;
+  }
 }
 
 export class AfricanSwallow extends Bird {

@@ -53,6 +53,13 @@ describe('EuropeanSwallow', () => {
       expect(bird.plumage).toBe('average');
     });
   });
+
+  describe('airSpeedVelocity', () => {
+    it('should return 35', () => {
+      const bird = new EuropeanSwallow({ type: 'EuropeanSwallow' });
+      expect(bird.airSpeedVelocity).toBe(35);
+    });
+  });
 });
 
 describe('AfricanSwallow', () => {
