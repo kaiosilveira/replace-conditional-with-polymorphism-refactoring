@@ -74,6 +74,18 @@ describe('AfricanSwallow', () => {
       expect(bird.plumage).toBe('average');
     });
   });
+
+  describe('airSpeedVelocity', () => {
+    it('should return 38 for 1 coconut', () => {
+      const bird = new AfricanSwallow({ type: 'AfricanSwallow', numberOfCoconuts: 1 });
+      expect(bird.airSpeedVelocity).toBe(38);
+    });
+
+    it('should return 36 for 2 coconuts', () => {
+      const bird = new AfricanSwallow({ type: 'AfricanSwallow', numberOfCoconuts: 2 });
+      expect(bird.airSpeedVelocity).toBe(36);
+    });
+  });
 });
 
 describe('NorwegianBlueParrot', () => {

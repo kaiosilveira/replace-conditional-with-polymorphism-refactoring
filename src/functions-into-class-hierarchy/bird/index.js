@@ -35,6 +35,10 @@ export class AfricanSwallow extends Bird {
   get plumage() {
     return this.numberOfCoconuts > 2 ? 'tired' : 'average';
   }
+
+  get airSpeedVelocity() {
+    return 40 - 2 * this.numberOfCoconuts;
+  }
 }
 
 export class NorwegianBlueParrot extends Bird {
