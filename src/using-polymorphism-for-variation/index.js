@@ -1,9 +1,7 @@
+import { createRating } from './rating';
+
 export function rating(voyage, history) {
-  const vpf = voyageProfitFactor(voyage, history);
-  const vr = voyageRisk(voyage);
-  const chr = captainHistoryRisk(voyage, history);
-  if (vpf * 3 > vr + chr * 2) return 'A';
-  else return 'B';
+  return createRating(voyage, history).value;
 }
 
 export function voyageRisk(voyage) {
