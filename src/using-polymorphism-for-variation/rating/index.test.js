@@ -1,4 +1,4 @@
-import { Rating, ExperiencedChinaRating } from '.';
+import { Rating, ExperiencedChinaRating, createRating } from '.';
 
 const createHistory = ({ length, zone }) => Array.from({ length }, () => ({ zone }));
 
@@ -279,5 +279,21 @@ describe('ExperiencedChinaRating', () => {
         });
       });
     });
+  });
+});
+
+describe('createRating', () => {
+  it('should return an ExperiencedChinaRating instance if voyage zone is china and history has a trip to China', () => {
+    const voyage = { zone: 'china' };
+    const history = [{ zone: 'china' }];
+    const rating = createRating(voyage, history);
+    expect(rating instanceof ExperiencedChinaRating).toBeTruthy();
+  });
+
+  it('should return a Rating instance if voyage zone is not china or history has no trip to China', () => {
+    const voyage = { zone: 'latam' };
+    const history = [{ zone: 'latam' }];
+    const rating = createRating(voyage, history);
+    expect(rating instanceof Rating).toBeTruthy();
   });
 });

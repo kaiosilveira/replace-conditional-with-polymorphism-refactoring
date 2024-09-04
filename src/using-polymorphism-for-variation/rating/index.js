@@ -49,3 +49,9 @@ export class Rating {
 }
 
 export class ExperiencedChinaRating extends Rating {}
+
+export function createRating(voyage, history) {
+  if (voyage.zone === 'china' && history.some(v => 'china' === v.zone)) {
+    return new ExperiencedChinaRating(voyage, history);
+  } else return new Rating(voyage, history);
+}
