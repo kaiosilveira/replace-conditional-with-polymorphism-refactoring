@@ -71,25 +71,6 @@ describe('Rating', () => {
       const rating = new Rating(latamVoyage, history);
       expect(rating.captainHistoryRisk).toEqual(3);
     });
-
-    it('should remove 2 risk points if captain has been to China and voyage zone is China', () => {
-      const history = [{ zone: 'china' }];
-      const rating = new Rating(chinaVoyage, history);
-      expect(rating.captainHistoryRisk).toEqual(3);
-    });
-
-    it('should return zero if captain history risk is negative', () => {
-      const history = [
-        { zone: 'china', profit: 1 },
-        { profit: 2 },
-        { profit: 2 },
-        { profit: 2 },
-        { profit: 2 },
-      ];
-
-      const rating = new Rating(chinaVoyage, history);
-      expect(rating.captainHistoryRisk).toEqual(0);
-    });
   });
 
   describe('voyageProfitFactor', () => {
@@ -203,41 +184,30 @@ describe('ExperiencedChinaRating', () => {
   });
 
   describe('captainHistoryRisk', () => {
-    it('should return 1 as base value of captain history risk', () => {
-      const fiveTripHistory = createHistory({ length: 5, zone: 'latam' });
-      const rating = new ExperiencedChinaRating(latamVoyage, fiveTripHistory);
-      expect(rating.captainHistoryRisk).toEqual(1);
-    });
-
     it('should add 4 risk points if history has less than 5 trips', () => {
       const fourTripHistory = createHistory({ length: 4, zone: 'latam' });
       const rating = new ExperiencedChinaRating(latamVoyage, fourTripHistory);
-      expect(rating.captainHistoryRisk).toEqual(5);
+      expect(rating.captainHistoryRisk).toEqual(3);
     });
 
     it('should add 1 risk point for each trip with negative profit', () => {
       const history = [{ profit: 1 }, { profit: -1 }, { profit: -2 }, { profit: 2 }, { profit: 2 }];
       const rating = new ExperiencedChinaRating(latamVoyage, history);
-      expect(rating.captainHistoryRisk).toEqual(3);
-    });
-
-    it('should remove 2 risk points if captain has been to China and voyage zone is China', () => {
-      const history = [{ zone: 'china' }];
-      const rating = new ExperiencedChinaRating(chinaVoyage, history);
-      expect(rating.captainHistoryRisk).toEqual(3);
+      expect(rating.captainHistoryRisk).toEqual(1);
     });
 
     it('should return zero if captain history risk is negative', () => {
-      const history = [
-        { zone: 'china', profit: 1 },
-        { profit: 2 },
-        { profit: 2 },
-        { profit: 2 },
-        { profit: 2 },
-      ];
-
-      const rating = new ExperiencedChinaRating(chinaVoyage, history);
+      const fiveTripHistory = createHistory({ length: 5, zone: 'latam' });
+      const rating = new ExperiencedChinaRating(latamVoyage, fiveTripHistory);
       expect(rating.captainHistoryRisk).toEqual(0);
+    });
+
+    describe('since voyage is always to China', () => {
+      it('should remove 2 risk points from history risk', () => {
+        const history = [{ zone: 'china' }];
+        const rating = new ExperiencedChinaRating(chinaVoyage, history);
+        expect(rating.captainHistoryRisk).toEqual(3);
+      });
     });
   });
 
