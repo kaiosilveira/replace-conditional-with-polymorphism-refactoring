@@ -47,3 +47,5 @@ export class Rating {
     return this.history.some(v => 'china' === v.zone);
   }
 }
+
+export class ExperiencedChinaRating extends Rating {}
