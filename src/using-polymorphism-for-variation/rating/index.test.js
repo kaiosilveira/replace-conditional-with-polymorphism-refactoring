@@ -155,6 +155,51 @@ describe('Rating', () => {
       expect(rating.hasChinaHistory).toBeFalsy();
     });
   });
+
+  describe('voyageAndHistoryLengthFactor', () => {
+    it('should return 0 as base value of profit factor', () => {
+      const rating = new Rating(latamVoyage, emptyHistory);
+      expect(rating.voyageAndHistoryLengthFactor).toEqual(0);
+    });
+
+    it('should add 3 points to profit factor if voyage zone is china and history has a trip to China', () => {
+      const history = [{ zone: 'china' }];
+      const rating = new Rating(chinaVoyage, history);
+      expect(rating.voyageAndHistoryLengthFactor).toEqual(3);
+    });
+
+    it('should add 1 point if history has more than 10 trips', () => {
+      const history = createHistory({ length: 11, zone: 'china' });
+      const rating = new Rating(chinaVoyage, history);
+      expect(rating.voyageAndHistoryLengthFactor).toEqual(4);
+    });
+
+    it('should add 1 point if voyage length is greater than 12', () => {
+      const longChinaVoyage = { ...chinaVoyage, length: 13 };
+      const history = Array.from({ length: 5 }, () => chinaVoyage);
+      const rating = new Rating(longChinaVoyage, history);
+      expect(rating.voyageAndHistoryLengthFactor).toEqual(4);
+    });
+
+    it('should remove 1 point if voyage length is greater than 18', () => {
+      const extraLongChinaVoyage = { ...chinaVoyage, length: 13 };
+      const history = Array.from({ length: 5 }, () => chinaVoyage);
+      const rating = new Rating(extraLongChinaVoyage, history);
+      expect(rating.voyageAndHistoryLengthFactor).toEqual(4);
+    });
+
+    it('should add 1 point if history has more than 8 trips', () => {
+      const history = Array.from({ length: 9 }, () => latamVoyage);
+      const rating = new Rating(latamVoyage, history);
+      expect(rating.voyageAndHistoryLengthFactor).toEqual(1);
+    });
+
+    it('should remove 1 point if voyage length is greater than 14', () => {
+      const voyage = { zone: 'latam', length: 15 };
+      const rating = new Rating(voyage, emptyHistory);
+      expect(rating.voyageAndHistoryLengthFactor).toEqual(-1);
+    });
+  });
 });
 
 describe('ExperiencedChinaRating', () => {
