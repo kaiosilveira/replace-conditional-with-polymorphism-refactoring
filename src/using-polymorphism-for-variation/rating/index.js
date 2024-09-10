@@ -36,9 +36,13 @@ export class Rating {
 
   get voyageAndHistoryLengthFactor() {
     let result = 0;
-    if (this.history.length > 8) result += 1;
+    result += this.historyLengthFactor;
     if (this.voyage.length > 14) result -= 1;
     return result;
+  }
+
+  get historyLengthFactor() {
+    return this.history.length > 8 ? 1 : 0;
   }
 
   get hasChinaHistory() {

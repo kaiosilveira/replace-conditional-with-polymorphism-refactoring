@@ -140,6 +140,20 @@ describe('Rating', () => {
       expect(rating.voyageAndHistoryLengthFactor).toEqual(-1);
     });
   });
+
+  describe('historyLengthFactor', () => {
+    it('should return 0 if history length is less than 8', () => {
+      const history = Array.from({ length: 7 }, () => latamVoyage);
+      const rating = new Rating(latamVoyage, history);
+      expect(rating.historyLengthFactor).toEqual(0);
+    });
+
+    it('should return 1 if history length is more than 8', () => {
+      const history = Array.from({ length: 9 }, () => latamVoyage);
+      const rating = new Rating(latamVoyage, history);
+      expect(rating.historyLengthFactor).toEqual(1);
+    });
+  });
 });
 
 describe('ExperiencedChinaRating', () => {
