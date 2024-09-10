@@ -1,6 +1,7 @@
 import { Rating, ExperiencedChinaRating, createRating } from '.';
 
-const createHistory = ({ length, zone }) => Array.from({ length }, () => ({ zone }));
+const createHistory = ({ length, zone, profit = 0 }) =>
+  Array.from({ length }, () => ({ zone, profit }));
 
 const emptyHistory = createHistory({ length: 0 });
 const latamVoyage = { zone: 'latam' };
@@ -79,61 +80,26 @@ describe('Rating', () => {
       expect(rating.voyageProfitFactor).toEqual(2);
     });
 
+    it('should add 1 point to profit factor if voyage zone is china', () => {
+      const rating = new Rating(chinaVoyage, emptyHistory);
+      expect(rating.voyageProfitFactor).toEqual(3);
+    });
+
     it('should add 1 point to profit factor if voyage zone is east-indies', () => {
       const rating = new Rating(eastIndiesVoyage, emptyHistory);
       expect(rating.voyageProfitFactor).toEqual(3);
     });
 
-    describe('voyage is to China', () => {
-      const captainTripsHistory = [chinaVoyage];
-
-      it('should add 1 point to profit factor', () => {
-        const rating = new Rating(chinaVoyage, emptyHistory);
-        expect(rating.voyageProfitFactor).toEqual(3);
-      });
-
-      describe('captain has experience with voyages to China', () => {
-        it('should add 3 points to the profit factor', () => {
-          const rating = new Rating(chinaVoyage, captainTripsHistory);
-          expect(rating.voyageProfitFactor).toEqual(6);
-        });
-
-        it('should add 1 more point if the captain has more than 10 trips in their history', () => {
-          const history = createHistory({ length: 11, zone: 'china' });
-          const rating = new Rating(chinaVoyage, history);
-          expect(rating.voyageProfitFactor).toEqual(7);
-        });
-
-        describe('voyage is long', () => {
-          const history = createHistory({ length: 1, zone: 'china' });
-
-          it('should add 1 more point if the voyage has a length greater than 12', () => {
-            const longChinaVoyage = { ...chinaVoyage, length: 13 };
-            const rating = new Rating(longChinaVoyage, history);
-            expect(rating.voyageProfitFactor).toEqual(7);
-          });
-
-          it('should remove 1 point if the voyage has a length greater than 18', () => {
-            const longChinaVoyage = { ...chinaVoyage, length: 19 };
-            const rating = new Rating(longChinaVoyage, history);
-            expect(rating.voyageProfitFactor).toEqual(6);
-          });
-        });
-      });
+    it('should add 1 point if history has more than 8 trips', () => {
+      const history = Array.from({ length: 9 }, () => latamVoyage);
+      const rating = new Rating(latamVoyage, history);
+      expect(rating.voyageProfitFactor).toEqual(3);
     });
 
-    describe('voyage is not to China', () => {
-      it('should add 1 point if history has more than 8 trips', () => {
-        const history = Array.from({ length: 9 }, () => latamVoyage);
-        const rating = new Rating(latamVoyage, history);
-        expect(rating.voyageProfitFactor).toEqual(3);
-      });
-
-      it('should remove 1 point if voyage length is more than 14', () => {
-        const voyage = { zone: 'latam', length: 15 };
-        const rating = new Rating(voyage, emptyHistory);
-        expect(rating.voyageProfitFactor).toEqual(1);
-      });
+    it('should remove 1 point if voyage length is more than 14', () => {
+      const voyage = { zone: 'latam', length: 15 };
+      const rating = new Rating(voyage, emptyHistory);
+      expect(rating.voyageProfitFactor).toEqual(1);
     });
   });
 
@@ -162,32 +128,6 @@ describe('Rating', () => {
       expect(rating.voyageAndHistoryLengthFactor).toEqual(0);
     });
 
-    it('should add 3 points to profit factor if voyage zone is china and history has a trip to China', () => {
-      const history = [{ zone: 'china' }];
-      const rating = new Rating(chinaVoyage, history);
-      expect(rating.voyageAndHistoryLengthFactor).toEqual(3);
-    });
-
-    it('should add 1 point if history has more than 10 trips', () => {
-      const history = createHistory({ length: 11, zone: 'china' });
-      const rating = new Rating(chinaVoyage, history);
-      expect(rating.voyageAndHistoryLengthFactor).toEqual(4);
-    });
-
-    it('should add 1 point if voyage length is greater than 12', () => {
-      const longChinaVoyage = { ...chinaVoyage, length: 13 };
-      const history = Array.from({ length: 5 }, () => chinaVoyage);
-      const rating = new Rating(longChinaVoyage, history);
-      expect(rating.voyageAndHistoryLengthFactor).toEqual(4);
-    });
-
-    it('should remove 1 point if voyage length is greater than 18', () => {
-      const extraLongChinaVoyage = { ...chinaVoyage, length: 13 };
-      const history = Array.from({ length: 5 }, () => chinaVoyage);
-      const rating = new Rating(extraLongChinaVoyage, history);
-      expect(rating.voyageAndHistoryLengthFactor).toEqual(4);
-    });
-
     it('should add 1 point if history has more than 8 trips', () => {
       const history = Array.from({ length: 9 }, () => latamVoyage);
       const rating = new Rating(latamVoyage, history);
@@ -212,9 +152,8 @@ describe('ExperiencedChinaRating', () => {
     });
 
     it('should return "B" if voyage profit factor is not 3 times greater than voyage risk plus captain history risk times 2', () => {
-      const voyage = { zone: 'china' };
-      const history = createHistory({ length: 1, zone: 'China' });
-      const rating = new ExperiencedChinaRating(voyage, history);
+      const history = createHistory({ length: 20, zone: 'China', profit: -1 });
+      const rating = new ExperiencedChinaRating(chinaVoyage, history);
       expect(rating.value).toEqual('B');
     });
   });
@@ -259,13 +198,6 @@ describe('ExperiencedChinaRating', () => {
   describe('voyageProfitFactor', () => {
     const captainTripsHistory = [chinaVoyage];
 
-    describe('since voyage is always to China', () => {
-      it('should add 1 point to profit factor', () => {
-        const rating = new ExperiencedChinaRating(chinaVoyage, emptyHistory);
-        expect(rating.voyageProfitFactor).toEqual(3);
-      });
-    });
-
     describe('captain has experience with voyages to China', () => {
       it('should add 3 points to the profit factor', () => {
         const rating = new ExperiencedChinaRating(chinaVoyage, captainTripsHistory);
@@ -293,6 +225,33 @@ describe('ExperiencedChinaRating', () => {
           expect(rating.voyageProfitFactor).toEqual(6);
         });
       });
+    });
+  });
+
+  describe('voyageAndHistoryLengthFactor', () => {
+    it('should return 3 as base value of profit factor', () => {
+      const rating = new ExperiencedChinaRating(latamVoyage, emptyHistory);
+      expect(rating.voyageAndHistoryLengthFactor).toEqual(3);
+    });
+
+    it('should add 1 point if history has more than 10 trips', () => {
+      const history = createHistory({ length: 11, zone: 'china' });
+      const rating = new ExperiencedChinaRating(chinaVoyage, history);
+      expect(rating.voyageAndHistoryLengthFactor).toEqual(4);
+    });
+
+    it('should add 1 point if voyage length is greater than 12', () => {
+      const longChinaVoyage = { ...chinaVoyage, length: 13 };
+      const history = Array.from({ length: 5 }, () => chinaVoyage);
+      const rating = new ExperiencedChinaRating(longChinaVoyage, history);
+      expect(rating.voyageAndHistoryLengthFactor).toEqual(4);
+    });
+
+    it('should remove 1 point if voyage length is greater than 18', () => {
+      const extraLongChinaVoyage = { ...chinaVoyage, length: 19 };
+      const history = Array.from({ length: 5 }, () => chinaVoyage);
+      const rating = new ExperiencedChinaRating(extraLongChinaVoyage, history);
+      expect(rating.voyageAndHistoryLengthFactor).toEqual(3);
     });
   });
 });
