@@ -122,16 +122,16 @@ describe('Rating', () => {
     });
   });
 
-  describe('voyageAndHistoryLengthFactor', () => {
+  describe('voyageLengthFactor', () => {
     it('should return 0 as base value of profit factor', () => {
       const rating = new Rating(latamVoyage, emptyHistory);
-      expect(rating.voyageAndHistoryLengthFactor).toEqual(0);
+      expect(rating.voyageLengthFactor).toEqual(0);
     });
 
     it('should remove 1 point if voyage length is greater than 14', () => {
       const voyage = { zone: 'latam', length: 15 };
       const rating = new Rating(voyage, emptyHistory);
-      expect(rating.voyageAndHistoryLengthFactor).toEqual(-1);
+      expect(rating.voyageLengthFactor).toEqual(-1);
     });
   });
 
@@ -236,24 +236,24 @@ describe('ExperiencedChinaRating', () => {
     });
   });
 
-  describe('voyageAndHistoryLengthFactor', () => {
+  describe('voyageLengthFactor', () => {
     it('should return 3 as base value of profit factor', () => {
       const rating = new ExperiencedChinaRating(latamVoyage, emptyHistory);
-      expect(rating.voyageAndHistoryLengthFactor).toEqual(3);
+      expect(rating.voyageLengthFactor).toEqual(3);
     });
 
     it('should add 1 point if voyage length is greater than 12', () => {
       const longChinaVoyage = { ...chinaVoyage, length: 13 };
       const history = Array.from({ length: 5 }, () => chinaVoyage);
       const rating = new ExperiencedChinaRating(longChinaVoyage, history);
-      expect(rating.voyageAndHistoryLengthFactor).toEqual(4);
+      expect(rating.voyageLengthFactor).toEqual(4);
     });
 
     it('should remove 1 point if voyage length is greater than 18', () => {
       const extraLongChinaVoyage = { ...chinaVoyage, length: 19 };
       const history = Array.from({ length: 5 }, () => chinaVoyage);
       const rating = new ExperiencedChinaRating(extraLongChinaVoyage, history);
-      expect(rating.voyageAndHistoryLengthFactor).toEqual(3);
+      expect(rating.voyageLengthFactor).toEqual(3);
     });
   });
 
