@@ -237,23 +237,23 @@ describe('ExperiencedChinaRating', () => {
   });
 
   describe('voyageLengthFactor', () => {
-    it('should return 3 as base value of profit factor', () => {
+    it('should return 0 as base value of profit factor', () => {
       const rating = new ExperiencedChinaRating(latamVoyage, emptyHistory);
-      expect(rating.voyageLengthFactor).toEqual(3);
+      expect(rating.voyageLengthFactor).toEqual(0);
     });
 
     it('should add 1 point if voyage length is greater than 12', () => {
       const longChinaVoyage = { ...chinaVoyage, length: 13 };
       const history = Array.from({ length: 5 }, () => chinaVoyage);
       const rating = new ExperiencedChinaRating(longChinaVoyage, history);
-      expect(rating.voyageLengthFactor).toEqual(4);
+      expect(rating.voyageLengthFactor).toEqual(1);
     });
 
     it('should remove 1 point if voyage length is greater than 18', () => {
       const extraLongChinaVoyage = { ...chinaVoyage, length: 19 };
       const history = Array.from({ length: 5 }, () => chinaVoyage);
       const rating = new ExperiencedChinaRating(extraLongChinaVoyage, history);
-      expect(rating.voyageLengthFactor).toEqual(3);
+      expect(rating.voyageLengthFactor).toEqual(0);
     });
   });
 
