@@ -268,6 +268,20 @@ describe('ExperiencedChinaRating', () => {
       expect(rating.voyageAndHistoryLengthFactor).toEqual(3);
     });
   });
+
+  describe('historyLengthFactor', () => {
+    it('should return 0 if history length is less than 10', () => {
+      const history = Array.from({ length: 9 }, () => latamVoyage);
+      const rating = new ExperiencedChinaRating(latamVoyage, history);
+      expect(rating.historyLengthFactor).toEqual(0);
+    });
+
+    it('should return 1 if history length is more than 10', () => {
+      const history = Array.from({ length: 11 }, () => latamVoyage);
+      const rating = new ExperiencedChinaRating(latamVoyage, history);
+      expect(rating.historyLengthFactor).toEqual(1);
+    });
+  });
 });
 
 describe('createRating', () => {
